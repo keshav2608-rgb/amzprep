@@ -1,0 +1,11 @@
+/* Track pages: section headings and resource cards */
+.section-title { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 26px 0 10px; font-weight: 600; }
+.section-title:first-child { margin-top: 0; }
+.resources { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+.resource { display: flex; gap: 12px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 14px; text-decoration: none; transition: border-color .15s, transform .15s; }
+.resource:hover { border-color: var(--accent); transform: translateY(-1px); }
+.res-icon { width: 34px; height: 34px; border-radius: 9px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; flex: none; font-weight: 700; font-size: 13px; }
+.resource b { display: block; font-size: 13.5px; font-weight: 600; }
+.resource span { font-size: 12.5px; color: var(--muted); }
+.resource .host { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 4px; display: block; }

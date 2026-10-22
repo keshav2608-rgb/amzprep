@@ -1,0 +1,15 @@
+/* Per-section notepad: write, sketch, links */
+.pad-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.saved-at { font-size: 12px; color: var(--muted); }
+textarea.note { width: 100%; min-height: 280px; resize: vertical; padding: 14px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--bg); line-height: 1.65; outline: none; font-family: var(--mono); font-size: 13px; }
+textarea.note:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.tools { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+.tools .btn.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.swatch { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--line); cursor: pointer; padding: 0; }
+.swatch.on { box-shadow: 0 0 0 2px var(--accent); }
+.sep { width: 1px; height: 22px; background: var(--line); margin: 0 4px; }
+canvas { width: 100%; height: 380px; background: #fff; border: 1px solid var(--line); border-radius: 10px; touch-action: none; display: block; cursor: crosshair; }
+.linkrow { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.linkrow .input { flex: 1 1 180px; min-width: 0; }
+.saved-links .list-item { padding: 9px 0; }

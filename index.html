@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AMZ Prep: track DSA, system design, leadership and internship prep in one dashboard.">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>AMZ Prep</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<!-- Applies the saved theme before first paint. External (not inline) so the CSP can forbid inline scripts. -->
+<script src="/theme-init.js"></script>
+<link rel="stylesheet" href="/styles/tokens.css">
+<link rel="stylesheet" href="/styles/base.css">
+<link rel="stylesheet" href="/styles/components.css">
+<link rel="stylesheet" href="/styles/layout.css">
+<link rel="stylesheet" href="/styles/auth.css">
+<link rel="stylesheet" href="/styles/dashboard.css">
+<link rel="stylesheet" href="/styles/sections.css">
+<link rel="stylesheet" href="/styles/tracker.css">
+<link rel="stylesheet" href="/styles/notepad.css">
+<script type="module" src="/src/main.js"></script>
+</head>
+<body>
+
+<!-- ============ AUTH ============ -->
+<div class="auth" id="auth" hidden>
+  <div class="auth-card">
+    <div class="brand"><div class="brand-mark">P</div>AMZ Prep</div>
+    <h1 id="auth-title">Welcome back</h1>
+    <p class="sub" id="auth-sub">Log in to continue your interview prep.</p>
+    <div class="seg">
+      <button type="button" data-mode="login" class="on">Log in</button>
+      <button type="button" data-mode="signup">Sign up</button>
+    </div>
+    <p class="info" id="auth-info" role="status" hidden></p>
+    <form id="auth-form" autocomplete="on" novalidate>
+      <label class="field" id="f-name" hidden><span>Name</span><input class="input" name="name" autocomplete="name" placeholder="Your name"></label>
+      <label class="field" id="f-email"><span>Email</span><input class="input" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com"></label>
+      <label class="field" id="f-pass"><span>Password</span><input class="input" name="pass" type="password" autocomplete="current-password" placeholder="••••••••"></label>
+      <label class="field" id="f-confirm" hidden><span>Confirm password</span><input class="input" name="confirm" type="password" autocomplete="new-password" placeholder="••••••••"></label>
+      <p class="error" id="auth-error" role="alert"></p>
+      <button class="btn btn-primary btn-block" id="auth-submit" type="submit">Log in</button>
+    </form>
+    <div class="auth-links">
+      <button type="button" class="link" id="forgot-link">Forgot password?</button>
+      <button type="button" class="link" id="back-link" hidden>← Back to log in</button>
+    </div>
+    <p class="fine">By continuing you agree to how we handle your data in the <a href="/privacy">privacy notice</a>.</p>
+  </div>
+</div>
+
+<!-- ============ LOADING ============ -->
+<div class="boot" id="boot" hidden><div class="spinner" aria-label="Loading"></div></div>
+
+<!-- ============ APP ============ -->
+<div class="shell" id="app" hidden>
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">P</div><span>AMZ Prep</span></div>
+    <div>
+      <div class="nav-label">Overview</div>
+      <nav class="nav" id="nav-main"></nav>
+    </div>
+    <div>
+      <div class="nav-label">Tracks</div>
+      <nav class="nav" id="nav-tracks"></nav>
+    </div>
+    <div class="sidebar-foot">
+      <button class="account-btn" id="open-account" title="Account settings">
+        <span class="avatar" id="avatar">?</span>
+        <span class="who"><b id="who-name"></b><span id="who-user"></span></span>
+      </button>
+      <button class="icon-btn" id="logout" title="Log out"><svg viewBox="0 0 24 24"><path d="M15 17l5-5-5-5M20 12H9M12 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"/></svg></button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div><h2 id="page-title">Dashboard</h2><p id="page-sub"></p></div>
+      <div class="top-actions">
+        <button class="icon-btn" id="theme" title="Toggle theme"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      </div>
+    </div>
+    <div class="content" id="content"></div>
+  </div>
+</div>
+
+<!-- ============ ACCOUNT ============ -->
+<dialog class="modal" id="account-dialog">
+  <div class="m-head">
+    <div><h3 id="acct-name"></h3><div class="li-sub" id="acct-email"></div></div>
+    <button class="x" data-close title="Close">✕</button>
+  </div>
+  <div class="m-body">
+    <div>
+      <div class="m-label">Your data</div>
+      <p class="li-sub" style="margin:0 0 10px">Download everything stored for your account: progress, notes, sketches and links.</p>
+      <button class="btn btn-sm" id="acct-export">Export my data</button>
+    </div>
+    <div>
+      <div class="m-label">Sessions</div>
+      <p class="li-sub" style="margin:0 0 10px">Sign out on every device where you're logged in.</p>
+      <button class="btn btn-sm" id="acct-signout-all">Sign out everywhere</button>
+    </div>
+    <div class="danger-zone">
+      <div class="m-label">Delete account</div>
+      <p class="li-sub" style="margin:0 0 10px">Permanently deletes your account and all of its data. This can't be undone. Type <b>DELETE</b> to confirm.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input class="input" id="acct-confirm" autocomplete="off" placeholder="DELETE" style="max-width:180px">
+        <button class="btn btn-danger btn-sm" id="acct-delete" disabled>Delete my account</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<noscript><p style="padding:24px">AMZ Prep needs JavaScript enabled.</p></noscript>
+</body>
+</html>
