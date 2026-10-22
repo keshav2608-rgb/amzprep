@@ -25,9 +25,9 @@ That shapes which controls matter. The checklist below records, for every item, 
 
 Do these once per Supabase project / Vercel project:
 
-1. **Run the migration** `supabase/migrations/20261023000000_init.sql`, then confirm RLS shows *Enabled* on `profiles`, `problem_progress` and `notepads` (Table Editor).
+1. **Run every migration** in `supabase/migrations/` in filename order, then confirm RLS shows *Enabled* on `profiles`, `problem_progress` and `notepads` (Table Editor).
 2. **Auth → Providers → Email:** enable *Confirm email*. Set *Minimum password length* to **8**, and *Password requirements* to **letters and digits**. Enable *Leaked password protection* if your plan has it.
-3. **Auth → URL Configuration:** set *Site URL* to your production URL (e.g. `https://amzprep.vercel.app`). Add only your own domains to *Redirect URLs*: production, plus `http://localhost:5173` for development. Never add `*`.
+3. **Auth → URL Configuration:** set *Site URL* to your production URL (e.g. `https://amzprep.vercel.app`). Add only your own domains to *Redirect URLs*: `https://amzprep.vercel.app/**`, plus `http://localhost:5173/**` for development. Never add a bare `*` or another domain.
 4. **Auth → Rate Limits:** review the defaults (sign-ups, sign-ins, OTP/email sends per hour). Lower them if you see abuse.
 5. **Auth → Sessions (if available on your plan):** set an inactivity timeout and a maximum session lifetime.
 6. **Auth → Attack protection:** enable CAPTCHA (Cloudflare Turnstile) if bot sign-ups appear. This needs a small client change; see item 115.
@@ -134,7 +134,7 @@ Do these once per Supabase project / Vercel project:
 | 84 | Supply Chain Attacks | ✅ | `npm ci` from the lockfile; no CDN scripts at runtime (everything is bundled and served from our own origin). |
 | 79 | SAST | ⚙️ | Enable GitHub CodeQL default setup (checklist 10). |
 | 78 | Security Code Review | ⚙️ 🔜 | Require PR review on `main` once there are contributors. |
-| 83 | Security Regression Tests | ✅ | `tests/` cover URL sanitization, backup validation, input limits and streak integrity. Run in CI. |
+| 83 | Security Regression Tests | ✅ | `tests/db.test.js` applies every migration to an in-memory Postgres and verifies RLS isolation, anon lockout, constraints and account-deletion cascade. Other tests cover URL sanitization, backup validation, input limits and streak integrity. All run in CI. |
 | 80 / 81 / 82 | DAST / Pen Testing / Vulnerability Scanning | 🔜 | Run OWASP ZAP baseline against a preview URL before major releases. Use the Supabase *Security Advisor* (Database → Advisors). |
 | 120 | Continuous Security Assessment | ✅ ⚙️ | CI, Dependabot and CodeQL on every push; review the Supabase advisors periodically. |
 | 76 / 77 | SSDLC / Threat Modeling | ✅ | This document is the threat model (architecture, assets, controls). Update it when adding features. |

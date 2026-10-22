@@ -19,9 +19,9 @@ A minimalist interview-prep dashboard. It includes a LeetCode-style tracker for 
 ### 1. Supabase
 
 1. Create a project at [supabase.com](https://supabase.com).
-2. **SQL Editor →** paste and run [`supabase/migrations/20261023000000_init.sql`](supabase/migrations/20261023000000_init.sql).
+2. **SQL Editor →** run each file in [`supabase/migrations/`](supabase/migrations/) **in filename order** (`…_init.sql`, then `…_fix_solved_at_check.sql`).
 3. **Authentication → Providers → Email:** enable *Confirm email*. Set minimum password length to 8, requiring letters and digits.
-4. **Authentication → URL Configuration:** set the *Site URL* to your Vercel URL. Add `http://localhost:5173` to *Redirect URLs* for local development.
+4. **Authentication → URL Configuration:** set the *Site URL* to your Vercel URL. Under *Redirect URLs* add `https://<your-app>.vercel.app/**` (the `/**` is needed for the password-reset link) and `http://localhost:5173/**` for local development.
 5. **Project Settings → API:** copy the *Project URL* and the *anon / publishable* key. **Never** use the `service_role` key in this app.
 
 See [SECURITY.md](SECURITY.md#deployment-security-checklist) for the full hardening checklist.
