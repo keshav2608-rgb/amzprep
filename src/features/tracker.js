@@ -190,7 +190,7 @@ export function renderTracker(full = true) {
   $("#lc-body").innerHTML = rows.length ? rows.map(p => {
     const st = statusOf(p.id), star = !!d.starred[p.id], note = !!d.notes[p.id];
     return `<div class="lc-row" data-id="${p.id}">
-      <span><button class="st ${st}" data-a="status" title="${STATUS_LABEL[st]} · click to change">${STATUS_ICON[st]}</button></span>
+      <span><button class="st ${st}" data-a="status" title="${STATUS_LABEL[st]}. Click to change." aria-label="Status: ${STATUS_LABEL[st]}">${STATUS_ICON[st]}</button></span>
       <a class="p-title" href="${p.link}" target="_blank" rel="noopener" title="${esc(p.topics.join(", "))}"><span class="n">${p.id}.</span> ${esc(p.title)}</a>
       <span class="cell-num c-acc">${p.acceptanceRate.toFixed(1)}%</span>
       <span class="diff ${p.difficulty}">${p.difficulty === "MEDIUM" ? "Med." : diffName(p.difficulty)}</span>
@@ -283,7 +283,7 @@ function renderSidebar() {
 
   $("#lc-progress").innerHTML = `
     <div class="card-head" style="margin-bottom:12px"><h3>Progress</h3>
-      <small title="${solvedToday ? "Solved today" : "Solve one today to keep it"}">🔥 ${streak}-day streak</small></div>
+      <small class="streak-chip ${solvedToday ? "on" : ""}" title="${solvedToday ? "Solved today" : "Solve one today to keep it"}">${streak}-day streak</small></div>
     <div class="ring-wrap">
       <div class="ring"><svg viewBox="0 0 112 112">${arcs}</svg>
         <div class="ring-c"><div><b>${solved}</b><span>/ ${PROBLEMS.length} solved</span></div></div></div>
@@ -299,7 +299,7 @@ function renderSidebar() {
     + (p ? `<a class="pick-title" href="${p.link}" target="_blank" rel="noopener">${p.id}. ${esc(p.title)}</a>
       <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;font-size:12.5px"><span class="diff ${p.difficulty}">${diffName(p.difficulty)}</span><span style="color:var(--muted)">Acceptance ${p.acceptanceRate.toFixed(1)}%</span></div>
       <div class="tags">${p.topics.slice(0, 4).map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>`
-      : `<div class="empty">Everything solved 🎉</div>`);
+      : `<div class="empty">Everything solved.</div>`);
 }
 
 function openProblem(id) {
@@ -313,8 +313,8 @@ function openProblem(id) {
       <div><h3>${p.id}. ${esc(p.title)}</h3>
         <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12.5px">
           <span class="diff ${p.difficulty}">${diffName(p.difficulty)}</span>
-          <span style="color:var(--muted)">Acceptance ${p.acceptanceRate.toFixed(1)}% · Frequency ${p.frequency.toFixed(1)}</span></div></div>
-      <button class="x" data-close title="Close">✕</button>
+          <span style="color:var(--muted)">Acceptance ${p.acceptanceRate.toFixed(1)}%, frequency ${Math.round(p.frequency)}</span></div></div>
+      <button class="x" data-close title="Close" aria-label="Close">✕</button>
     </div>
     <div class="m-body">
       <div class="tags">${p.topics.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>
@@ -324,7 +324,7 @@ function openProblem(id) {
     </div>
     <div class="m-foot">
       <div style="display:flex;gap:8px">
-        <a class="btn" href="${p.link}" target="_blank" rel="noopener">Solve on LeetCode ↗</a>
+        <a class="btn" href="${p.link}" target="_blank" rel="noopener">Solve on LeetCode</a>
         <button class="btn" id="m-star"></button>
       </div>
       <div style="display:flex;gap:8px"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" id="m-save">Save</button></div>
@@ -333,7 +333,8 @@ function openProblem(id) {
   const sync = () => {
     $$("#m-st button", dlg).forEach(b => b.classList.toggle("on", b.dataset.v === status));
     $$("#m-conf button", dlg).forEach(b => b.classList.toggle("on", +b.dataset.v === conf));
-    $("#m-star", dlg).textContent = star ? "★ Starred" : "☆ Star";
+    $("#m-star", dlg).textContent = star ? "Starred" : "Add star";
+    $("#m-star", dlg).setAttribute("aria-pressed", String(star));
   };
   $$("#m-st button", dlg).forEach(b => b.onclick = () => { status = b.dataset.v; sync(); });
   $$("#m-conf button", dlg).forEach(b => b.onclick = () => { conf = conf === +b.dataset.v ? 0 : +b.dataset.v; sync(); });

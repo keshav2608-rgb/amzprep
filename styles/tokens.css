@@ -1,15 +1,112 @@
-/* Design tokens: colours, radii, type. Dark theme overrides via [data-theme=dark]. */
+/* Design tokens.
+   Identity: a practice log. Spruce for the brand, marigold reserved for "today" and the streak,
+   condensed numerals for anything you'd read like a scoreboard. */
+
 :root {
-  --bg: #f7f7f5; --surface: #ffffff; --surface-2: #f2f2ef; --ink: #18181b; --ink-2: #3f3f46;
-  --muted: #71717a; --line: #e7e7e4; --accent: #4f46e5; --accent-soft: rgba(79,70,229,.10);
-  --easy: #16a34a; --medium: #d97706; --hard: #dc2626; --danger: #dc2626;
-  --radius: 12px; --shadow: 0 1px 2px rgba(0,0,0,.04), 0 1px 1px rgba(0,0,0,.03);
-  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  /* Surfaces */
+  --bg: #f2f4f1;            /* stone: app background */
+  --surface: #ffffff;       /* paper: panels, tables, inputs */
+  --surface-2: #eaeee9;     /* sunken: tracks, zebra rows, segmented controls */
+  --surface-3: #dfe5df;
+
+  /* Text */
+  --ink: #18231f;
+  --ink-2: #3a4943;
+  --muted: #5f6e67;         /* 5.3:1 on white */
+
+  /* Lines */
+  --line: #dbe1db;
+  --line-strong: #c3ccc5;
+
+  /* Brand */
+  --brand: #1f4d3f;         /* spruce */
+  --brand-hover: #173d32;
+  --brand-ink: #ffffff;
+  --brand-soft: #e1ece6;
+  --brand-text: #1f5a48;
+
+  /* Marigold: today, streak, current item. Fill only; use --accent-text for text. */
+  --accent: #e09a12;
+  --accent-soft: #fbefd3;
+  --accent-text: #8a5a00;
+
+  /* Difficulty & status */
+  --easy: #1f7f5a;
+  --medium: #a8650a;
+  --hard: #b8392a;
+  --danger: #b4321f;
+  --danger-soft: #fbe6e2;
+  --success: #1f7f5a;
+
+  /* Sidebar (always dark) */
+  --side-bg: #16362d;
+  --side-ink: #e3ece7;
+  --side-muted: #93ab9f;
+  --side-line: rgba(255, 255, 255, .09);
+  --side-hover: rgba(255, 255, 255, .06);
+  --side-active: rgba(255, 255, 255, .1);
+
+  --focus: #2f7a62;
+
+  /* Shape */
+  --r-sm: 6px;              /* controls */
+  --r-md: 10px;             /* panels */
+  --r-lg: 14px;             /* dialogs, hero band */
+
+  /* Elevation: green-tinted, used only for things that float */
+  --shadow-1: 0 1px 2px rgba(22, 54, 45, .06);
+  --shadow-2: 0 2px 4px rgba(22, 54, 45, .05), 0 8px 24px -6px rgba(22, 54, 45, .12);
+  --shadow-pop: 0 4px 10px rgba(16, 40, 33, .08), 0 24px 48px -12px rgba(16, 40, 33, .28);
+
+  /* Type */
+  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-cond: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-base: 14px;
+  --fs-md: 16px;
+  --fs-lg: 20px;
+  --fs-xl: 26px;
+  --fs-2xl: 40px;
+  --fs-hero: 72px;
+
+  /* Spacing (4px grid) */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 24px; --s8: 32px; --s10: 40px;
+
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  color-scheme: light;
 }
+
 :root[data-theme="dark"] {
-  --bg: #0c0c0e; --surface: #141417; --surface-2: #1b1b1f; --ink: #ededf0; --ink-2: #c4c4cc;
-  --muted: #8a8a94; --line: #26262b; --accent: #8b87f7; --accent-soft: rgba(139,135,247,.14);
-  --easy: #34d399; --medium: #fbbf24; --hard: #f87171; --danger: #f87171;
-  --shadow: none;
+  --bg: #0f1613;
+  --surface: #151e1a;
+  --surface-2: #1b2621;
+  --surface-3: #23302a;
+  --ink: #e4ebe7;
+  --ink-2: #b9c6bf;
+  --muted: #8e9e96;
+  --line: #25322c;
+  --line-strong: #34443d;
+  --brand: #4fa383;
+  --brand-hover: #63b595;
+  --brand-ink: #0c1411;
+  --brand-soft: rgba(79, 163, 131, .14);
+  --brand-text: #7cc5a8;
+  --accent: #f0b232;
+  --accent-soft: rgba(240, 178, 50, .14);
+  --accent-text: #f3c160;
+  --easy: #4dbd8f;
+  --medium: #e6a53d;
+  --hard: #ef6f5b;
+  --danger: #ef6f5b;
+  --danger-soft: rgba(239, 111, 91, .14);
+  --success: #4dbd8f;
+  --side-bg: #0b110e;
+  --side-line: rgba(255, 255, 255, .07);
+  --focus: #7cc5a8;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, .3);
+  --shadow-2: 0 2px 4px rgba(0, 0, 0, .25), 0 8px 24px -6px rgba(0, 0, 0, .45);
+  --shadow-pop: 0 24px 48px -12px rgba(0, 0, 0, .6);
+  color-scheme: dark;
 }

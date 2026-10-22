@@ -18,7 +18,7 @@ export function notepadHTML(id) {
       </div>
       <span class="saved-at"></span>
     </div>
-    <div data-pane="type"><textarea class="note" maxlength="${LIMITS.notepadBody}" placeholder="Start writing… everything saves automatically."></textarea></div>
+    <div data-pane="type"><textarea class="note" maxlength="${LIMITS.notepadBody}" placeholder="Write your notes here. They save as you type."></textarea></div>
     <div data-pane="draw" hidden>
       <div class="tools">
         <button class="btn btn-sm on" data-tool="pen">Pen</button>
@@ -135,11 +135,10 @@ function initLinks(id, root, save) {
       let host = l.url;
       try { host = new URL(l.url).hostname.replace(/^www\./, ""); } catch {}
       return `<div class="list-item">
-        <div class="res-icon" style="width:28px;height:28px;font-size:12px">${esc((l.title || host)[0].toUpperCase())}</div>
         <div class="li-body"><a class="li-title" style="display:block;text-decoration:none" href="${esc(safeUrl(l.url) || "#")}" target="_blank" rel="noopener noreferrer">${esc(l.title || l.url)}</a>
           <div class="li-sub">${esc(host)}</div></div>
-        <button class="x" data-i="${i}" title="Remove">✕</button></div>`;
-    }).join("") : `<div class="empty">No links yet. Paste a URL above to attach it.</div>`;
+        <button class="x" data-i="${i}" title="Remove link" aria-label="Remove link">✕</button></div>`;
+    }).join("") : `<div class="empty">No links yet. Paste a URL above to save one.</div>`;
     $$(".x", list).forEach(b => b.onclick = () => { links.splice(+b.dataset.i, 1); persist(); });
   }
 

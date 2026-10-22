@@ -9,6 +9,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <!-- Applies the saved theme before first paint. External (not inline) so the CSP can forbid inline scripts. -->
 <script src="/theme-init.js"></script>
+<link rel="stylesheet" href="/styles/fonts.css">
 <link rel="stylesheet" href="/styles/tokens.css">
 <link rel="stylesheet" href="/styles/base.css">
 <link rel="stylesheet" href="/styles/components.css">
@@ -24,8 +25,31 @@
 
 <!-- ============ AUTH ============ -->
 <div class="auth" id="auth" hidden>
+  <aside class="auth-aside" aria-hidden="true">
+    <div class="brand"><div class="brand-mark">A</div>AMZ Prep</div>
+    <div class="aside-body">
+      <p class="aside-title">Practice a little every day.<br>Watch it add up.</p>
+      <div class="aside-week">
+        <div class="aside-streak"><span class="num">14</span>days in a row</div>
+        <ol class="week week-demo">
+          <li class="solved"><span class="wk-dot"><span class="num">2</span></span><span class="wk-day">Th</span></li>
+          <li class="solved"><span class="wk-dot"><span class="num">1</span></span><span class="wk-day">Fr</span></li>
+          <li class="solved"><span class="wk-dot"><span class="num">3</span></span><span class="wk-day">Sa</span></li>
+          <li class="solved"><span class="wk-dot"><span class="num">1</span></span><span class="wk-day">Su</span></li>
+          <li class="solved"><span class="wk-dot"><span class="num">2</span></span><span class="wk-day">Mo</span></li>
+          <li class="solved"><span class="wk-dot"><span class="num">1</span></span><span class="wk-day">Tu</span></li>
+          <li class="is-today"><span class="wk-dot"></span><span class="wk-day">Today</span></li>
+        </ol>
+      </div>
+      <ul class="aside-points">
+        <li><b class="num">1,086</b><span>LeetCode problems, ranked by how often they're asked</span></li>
+        <li><b class="num">5</b><span>tracks, from DSA to leadership, each with its own notebook</span></li>
+        <li><b class="num">1</b><span>rule for your streak: a day counts when you solve something</span></li>
+      </ul>
+    </div>
+  </aside>
   <div class="auth-card">
-    <div class="brand"><div class="brand-mark">P</div>AMZ Prep</div>
+    <div class="brand auth-brand-mobile"><div class="brand-mark">A</div>AMZ Prep</div>
     <h1 id="auth-title">Welcome back</h1>
     <p class="sub" id="auth-sub">Log in to continue your interview prep.</p>
     <div class="seg">
@@ -55,7 +79,7 @@
 <!-- ============ APP ============ -->
 <div class="shell" id="app" hidden>
   <aside class="sidebar">
-    <div class="brand"><div class="brand-mark">P</div><span>AMZ Prep</span></div>
+    <div class="brand"><div class="brand-mark">A</div><span>AMZ Prep</span></div>
     <div>
       <div class="nav-label">Overview</div>
       <nav class="nav" id="nav-main"></nav>
@@ -88,7 +112,7 @@
 <dialog class="modal" id="account-dialog">
   <div class="m-head">
     <div><h3 id="acct-name"></h3><div class="li-sub" id="acct-email"></div></div>
-    <button class="x" data-close title="Close">✕</button>
+    <button class="x" data-close title="Close" aria-label="Close">✕</button>
   </div>
   <div class="m-body">
     <div>
@@ -98,8 +122,11 @@
     </div>
     <div>
       <div class="m-label">Sessions</div>
-      <p class="li-sub" style="margin:0 0 10px">Sign out on every device where you're logged in.</p>
-      <button class="btn btn-sm" id="acct-signout-all">Sign out everywhere</button>
+      <p class="li-sub" style="margin:0 0 10px">Log out here, or on every device where you're logged in.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-sm" id="acct-logout">Log out</button>
+        <button class="btn btn-sm" id="acct-signout-all">Log out everywhere</button>
+      </div>
     </div>
     <div class="danger-zone">
       <div class="m-label">Delete account</div>

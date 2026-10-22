@@ -9,22 +9,34 @@ import { trackerHTML, initTracker, enterTracker } from "./tracker.js";
 import { notepadHTML, initNotepad, refreshNotepad } from "./notepad.js";
 
 const navButton = (id, name) => `<button data-id="${id}"><svg viewBox="0 0 24 24">${ICONS[id]}</svg>${name}</button>`;
-const hostOf = url => new URL(url).hostname.replace(/^www\./, "");
+// Readable source label; machine-generated hosts (e.g. CDN buckets) get a generic name
+const hostOf = url => {
+  const host = new URL(url).hostname.replace(/^www\./, "");
+  return /^[a-z0-9]{12,}\./.test(host) ? "Course site" : host;
+};
+
+const EXTERNAL_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
 
 function sectionPage(s) {
   const resources = s.links.length ? `
-    <div class="section-title">Resources</div>
-    <div class="resources">${s.links.map(([title, url, desc]) => `
-      <a class="resource" href="${url}" target="_blank" rel="noopener">
-        <div class="res-icon">${esc(title[0])}</div>
-        <div><b>${esc(title)}</b><span>${esc(desc)}</span><span class="host">${esc(hostOf(url))}</span></div>
-      </a>`).join("")}</div>` : "";
+    <section class="resources-block">
+      <h3 class="block-title">Reading list</h3>
+      <div class="resources">${s.links.map(([title, url, desc]) => `
+        <a class="resource" href="${url}" target="_blank" rel="noopener noreferrer">
+          <span class="res-body"><b>${esc(title)}</b><span>${esc(desc)}</span></span>
+          <span class="host">${esc(hostOf(url))}${EXTERNAL_ICON}</span>
+        </a>`).join("")}</div>
+    </section>` : "";
 
   return `<div class="page" id="page-${s.id}">
     ${s.id === "dsa" ? trackerHTML() : ""}
-    ${resources}
-    <div class="section-title">Notepad</div>
-    ${notepadHTML(s.id)}
+    <div class="track ${s.links.length ? "" : "track-solo"}">
+      ${resources}
+      <section class="notebook-block">
+        <h3 class="block-title">Notebook</h3>
+        ${notepadHTML(s.id)}
+      </section>
+    </div>
   </div>`;
 }
 

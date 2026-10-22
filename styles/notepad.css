@@ -1,15 +1,29 @@
-/* Per-section notepad: write, sketch, links */
-.pad-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
-.saved-at { font-size: 12px; color: var(--muted); }
-textarea.note { width: 100%; min-height: 280px; resize: vertical; padding: 14px; border-radius: 10px; border: 1px solid var(--line);
-  background: var(--bg); line-height: 1.65; outline: none; font-family: var(--mono); font-size: 13px; }
-textarea.note:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-.tools { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+/* Notebook: write, sketch, links */
+.pad { padding: 0; overflow: hidden; }
+.pad-head { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--s3); padding: var(--s2) var(--s5) 0; border-bottom: 1px solid var(--line); }
+.pad-head .tabs { border-bottom: 0; }
+.saved-at { font-size: var(--fs-xs); color: var(--muted); padding-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.saved-at:not(:empty)::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+.pad [data-pane] { padding: var(--s4) var(--s5) var(--s5); }
+
+textarea.note {
+  display: block; width: 100%; min-height: 340px; resize: vertical;
+  border: 0; padding: 0; background: transparent; outline: none;
+  font: 400 15px/1.75 var(--font); color: var(--ink);
+}
+textarea.note::placeholder { color: var(--muted); }
+.pad:focus-within { border-color: var(--line-strong); box-shadow: var(--shadow-2); }
+
+.tools { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: var(--s3); }
 .tools .btn.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.swatch { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--line); cursor: pointer; padding: 0; }
-.swatch.on { box-shadow: 0 0 0 2px var(--accent); }
-.sep { width: 1px; height: 22px; background: var(--line); margin: 0 4px; }
-canvas { width: 100%; height: 380px; background: #fff; border: 1px solid var(--line); border-radius: 10px; touch-action: none; display: block; cursor: crosshair; }
-.linkrow { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.swatch { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--line-strong); cursor: pointer; padding: 0; transition: transform .12s var(--ease); }
+.swatch:hover { transform: scale(1.1); }
+.swatch.on { box-shadow: 0 0 0 2px var(--ink); }
+.sep { width: 1px; height: 20px; background: var(--line); margin: 0 4px; }
+canvas { width: 100%; height: 380px; background: #fff; border: 1px solid var(--line); border-radius: var(--r-sm); touch-action: none; display: block; cursor: crosshair; }
+
+.linkrow { display: flex; gap: var(--s2); flex-wrap: wrap; margin-bottom: var(--s3); }
 .linkrow .input { flex: 1 1 180px; min-width: 0; }
-.saved-links .list-item { padding: 9px 0; }
+.saved-links .list-item { padding: 10px var(--s2); }
+.saved-links .li-title { color: var(--ink); }
+.saved-links .li-title:hover { color: var(--brand-text); text-decoration: underline; text-underline-offset: 3px; }

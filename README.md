@@ -75,6 +75,15 @@ npm run dev                    # http://localhost:5173
 └── .github/                 CI (tests, audit, build) and Dependabot
 ```
 
+## Design system
+
+All colours, type sizes, spacing, radii and shadows are tokens in [`styles/tokens.css`](styles/tokens.css), with dark-mode overrides alongside. A few rules keep it consistent:
+
+- **Colour:** spruce (`--brand`) for primary actions and progress; marigold (`--accent`) only for *today* and the streak.
+- **Type:** IBM Plex Sans for text; IBM Plex Sans Condensed (`.num`) for counts, titles and anything read like a scoreboard. Fonts are self-hosted.
+- **Shape:** radius `--r-sm` for controls, `--r-md` for panels, `--r-lg` for dialogs and the Today band. Shadows only on things that float.
+- **Motion:** the dashboard's bars fill once on first load; everything else moves only in response to an action. `prefers-reduced-motion` disables all of it.
+
 ## Data and privacy
 
 Each user can read and write only their own rows (Row Level Security). Users can export everything and delete their account from the **Account** dialog (click your name in the sidebar). See [`/privacy`](privacy.html) and [SECURITY.md](SECURITY.md).

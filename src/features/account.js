@@ -30,6 +30,9 @@ export function initAccountDialog({ onSignedOut }) {
     URL.revokeObjectURL(url);
   };
 
+  // Same path as the sidebar button, which is off-screen in the compact top bar
+  $("#acct-logout").onclick = () => { dlg.close(); $("#logout").click(); };
+
   $("#acct-signout-all").onclick = async () => {
     await logOut({ everywhere: true });
     dlg.close();

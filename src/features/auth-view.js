@@ -52,7 +52,7 @@ export function initAuthView({ onAuthenticated }) {
     const values = { name: field("name"), email: field("email"), password: field("pass"), confirm: field("confirm") };
 
     busy = true;
-    $("#auth-submit").disabled = true;
+    $("#auth-submit").setAttribute("aria-busy", "true");
     setError("");
     try {
       if (mode === "login") {
@@ -78,7 +78,7 @@ export function initAuthView({ onAuthenticated }) {
       setError(err instanceof AuthError ? err.message : "Something went wrong. Please try again.");
     } finally {
       busy = false;
-      $("#auth-submit").disabled = false;
+      $("#auth-submit").removeAttribute("aria-busy");
     }
   };
 }
